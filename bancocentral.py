@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 
 import feedparser
 import re
@@ -14,33 +16,24 @@ class Inflacao:
 		feed = self.feed
 
 		if feed['status'] == 200:
-			
-			items = feed.entries
-			
-			for item in items:
+			for item in feed.entries:
 				inflacao = item['summary']
 				tax = re.search('<div id=label>Meta</div><div id=rate><div id=value>(\d+,\d+)</div>', inflacao).group(1)
-			
 			return tax
-
-		else: return ("Site error %s" % inflacao_url)
+		else: 
+			return ("Site error %s" % inflacao_url)
 
 	def get_acumulada_tax(self):
 		
 		feed = self.feed
 		
 		if feed['status'] == 200:
-
-			items = feed.entries
-
-			for item in items:
+			for item in feed.entries:
 				inflacao = item['summary']
 				tax = re.search('<div id=label>Acumulada</div><div id=rate><div id=value>(\d+,\d+)</div>', inflacao).group(1)
-
 			return tax
-
-		else: return ("Site error %s" % inflacao_url)
-
+		else: 
+			return ("Site error %s" % inflacao_url)
 
 class Poupanca:
 
@@ -54,17 +47,12 @@ class Poupanca:
 		feed = self.feed
 
 		if feed['status'] == 200:
-
-			items = feed.entries
-
-			for item in items:
+			for item in feed.entries:
 				poupanca = item['summary']
 				tax = re.search('<div id=value>(\d+,\d+)</div>', poupanca).group(1)
-			
 			return tax
-
-		else: return ("Site error %s" % poupanca_url)
-
+		else: 
+			return ("Site error %s" % poupanca_url)
 
 class Dolar:
 
@@ -78,11 +66,7 @@ class Dolar:
 		feed = self.feed
 
 		if feed['status'] == 200:
-			
-			items = feed.entries
-
-			for item in items:
-
+			for item in feed.entries:
 				title = item['title']
 				if re.search('(PTAX)', title) or (re.search('Euro', title)):
 					continue
@@ -91,28 +75,23 @@ class Dolar:
 			
 			return compra
 
-		else: return ("Site error %s" % dolar_url)
+		else: 
+			return ("Site error %s" % dolar_url)
 
 	def get_dolar_venda(self):
 
 		feed = self.feed
 
 		if feed['status'] == 200:
-			
-			items = feed.entries
-
-			for item in items:
-
+			for item in feed.entries:
 				title = item['title']
 				if re.search('(PTAX)', title) or (re.search('Euro', title)):
 					continue
 				tax = item['summary']
 				venda = re.search('<div id=rate><div id=label>Venda</div><div id=value>(\d+,\d+)</div>', tax).group(1)
-			
 			return venda
-
-		else: return ("Site error %s" % dolar_url)
-
+		else: 
+			return ("Site error %s" % dolar_url)
 
 class Selic:
 
@@ -126,31 +105,24 @@ class Selic:
 		feed = self.feed
 
 		if feed['status'] == 200:
-			
-			items = feed.entries
-			for item in items:
+			for item in feed.entries:
 				selic = item['summary']
 				selic_meta = re.search('<div id=label>Meta:</div><div id=rate><div id=ratevalue>(\d+,\d+)</div>', selic).group(1)
-			
 			return selic_meta
-
-		else: return ("Site error %s" % selic_url)
+		else: 
+			return ("Site error %s" % selic_url)
 
 	def get_selic_real(self):
 
 		feed = self.feed
 
 		if feed['status'] == 200:
-			
-			items = feed.entries
-			for item in items:
+			for item in feed.entries:
 				selic = item['summary']
 				selic_real = re.search('<div id=dailyrate><div id=dailyratevalue>(\d+,\d+)</div>', selic).group(1)
-
 			return selic_real
-
-		else: return ("Site error %s" % selic_url)
-
+		else: 
+			return ("Site error %s" % selic_url)
 
 if __name__ == '__main__':
 
