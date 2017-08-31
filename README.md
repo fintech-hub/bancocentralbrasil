@@ -1,7 +1,7 @@
 # Banco Central do Brasil
 
 [![Build Status](https://travis-ci.org/leogregianin/bancocentralbrasil.svg)](https://travis-ci.org/leogregianin/bancocentralbrasil)
-[![Coverage Status](https://coveralls.io/repos/github/leogregianin/bancocentralbrasil/badge.svg?branch=master)](https://coveralls.io/github/leogregianin/bancocentralbrasil?branch=master)
+[![codecov](https://codecov.io/gh/leogregianin/bancocentralbrasil/branch/master/graph/badge.svg)](https://codecov.io/gh/leogregianin/bancocentralbrasil)
 
 Sobre
 -------
