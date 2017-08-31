@@ -4,11 +4,13 @@
 import feedparser
 import re
 
+USER_AGENT = "Mozilla/5.0 (compatible, MSIE 11, Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko"
+
 class Inflacao:
 
 	def __init__(self):
 		inflacao_url = "http://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/inflacao"
-		self.feed = feedparser.parse(inflacao_url)
+		self.feed = feedparser.parse(inflacao_url, agent=USER_AGENT)
 
 	def get_meta_tax(self):
 		feed = self.feed
@@ -34,7 +36,7 @@ class Poupanca:
 
 	def __init__(self):
 		poupanca_url = "http://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/poupanca"
-		self.feed = feedparser.parse(poupanca_url)
+		self.feed = feedparser.parse(poupanca_url, agent=USER_AGENT)
 
 	def get_poupanca_tax(self):
 		feed = self.feed
@@ -50,7 +52,7 @@ class Dolar:
 
 	def __init__(self):
 		dolar_url = "http://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/cambio"
-		self.feed = feedparser.parse(dolar_url)
+		self.feed = feedparser.parse(dolar_url, agent=USER_AGENT)
 
 	def get_dolar_compra(self):
 		feed = self.feed
@@ -84,7 +86,7 @@ class Selic:
 
 	def __init__(self):
 		selic_url = "http://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/juros"
-		self.feed = feedparser.parse(selic_url)
+		self.feed = feedparser.parse(selic_url, agent=USER_AGENT)
 
 	def get_selic_meta(self):
 		feed = self.feed
@@ -109,16 +111,16 @@ class Selic:
 if __name__ == '__main__':
 
 	infl = Inflacao()
-	print('Inflacao Meta: %s' % infl.get_meta_tax())
-	print('Inflacao acumulada 12 ultimos meses: %s' % infl.get_acumulada_tax())
+	print(u'Inflação Meta: %s' % infl.get_meta_tax())
+	print(u'Inflação acumulada 12 últimos meses: %s' % infl.get_acumulada_tax())
 
 	poup = Poupanca()
-	print('Poupanca: %s' % poup.get_poupanca_tax())
+	print(u'Poupança: %s' % poup.get_poupanca_tax())
 
 	dolar = Dolar()
-	print('Dolar compra: %s' % dolar.get_dolar_compra())
-	print('Dolar venda: %s' % dolar.get_dolar_venda())
+	print(u'Dólar compra: %s' % dolar.get_dolar_compra())
+	print(u'Dólar venda: %s' % dolar.get_dolar_venda())
 
 	selic = Selic()
-	print('Selic meta: %s' % selic.get_selic_meta())
-	print('Selic real: %s' % selic.get_selic_real())
+	print(u'Selic meta: %s' % selic.get_selic_meta())
+	print(u'Selic real: %s' % selic.get_selic_real())

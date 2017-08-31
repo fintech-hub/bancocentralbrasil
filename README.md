@@ -3,7 +3,7 @@
 Sobre
 -------
 
-   * Obtenção de informações sobre taxas oficiais diárias de Inflação, Selic, Poupança e Dólar direto do site do Banco Central do Brasil (http://www.bcb.gov.br)
+  * Obtenção de informações sobre taxas oficiais diárias de Inflação, Selic, Poupança e Dólar direto do site do Banco Central do Brasil (http://www.bcb.gov.br)
    
 Pré requisitos
 -------
@@ -48,6 +48,6 @@ Selic real: 14,15
 Licença
 -------
 
-[Licença MIT ](LICENSE).
+[Licença MIT](LICENSE)
  
    
