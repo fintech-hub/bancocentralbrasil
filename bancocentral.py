@@ -7,14 +7,11 @@ import re
 class Inflacao:
 
 	def __init__(self):
-
 		inflacao_url = "http://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/inflacao"
 		self.feed = feedparser.parse(inflacao_url)
 
 	def get_meta_tax(self):
-
 		feed = self.feed
-
 		if feed['status'] == 200:
 			for item in feed.entries:
 				inflacao = item['summary']
@@ -24,9 +21,7 @@ class Inflacao:
 			return ("Site error %s" % inflacao_url)
 
 	def get_acumulada_tax(self):
-		
 		feed = self.feed
-		
 		if feed['status'] == 200:
 			for item in feed.entries:
 				inflacao = item['summary']
@@ -38,14 +33,11 @@ class Inflacao:
 class Poupanca:
 
 	def __init__(self):
-
 		poupanca_url = "http://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/poupanca"
 		self.feed = feedparser.parse(poupanca_url)
 
 	def get_poupanca_tax(self):
-
 		feed = self.feed
-
 		if feed['status'] == 200:
 			for item in feed.entries:
 				poupanca = item['summary']
@@ -57,14 +49,11 @@ class Poupanca:
 class Dolar:
 
 	def __init__(self):
-
 		dolar_url = "http://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/cambio"
 		self.feed = feedparser.parse(dolar_url)
 
 	def get_dolar_compra(self):
-
 		feed = self.feed
-
 		if feed['status'] == 200:
 			for item in feed.entries:
 				title = item['title']
@@ -79,9 +68,7 @@ class Dolar:
 			return ("Site error %s" % dolar_url)
 
 	def get_dolar_venda(self):
-
 		feed = self.feed
-
 		if feed['status'] == 200:
 			for item in feed.entries:
 				title = item['title']
@@ -96,14 +83,11 @@ class Dolar:
 class Selic:
 
 	def __init__(self):
-
 		selic_url = "http://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/juros"
 		self.feed = feedparser.parse(selic_url)
 
 	def get_selic_meta(self):
-
 		feed = self.feed
-
 		if feed['status'] == 200:
 			for item in feed.entries:
 				selic = item['summary']
@@ -113,9 +97,7 @@ class Selic:
 			return ("Site error %s" % selic_url)
 
 	def get_selic_real(self):
-
 		feed = self.feed
-
 		if feed['status'] == 200:
 			for item in feed.entries:
 				selic = item['summary']
