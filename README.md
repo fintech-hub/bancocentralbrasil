@@ -24,7 +24,7 @@ Utilização
 -------
 
 ```bash
-$ python bancocentral.py
+$ python sample.py
 Inflacao Meta: 4,5
 Inflacao acumulada 12 ultimos meses: 9,32
 Poupanca: 0,7537

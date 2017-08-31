@@ -9,8 +9,8 @@ USER_AGENT = "Mozilla/5.0 (compatible, MSIE 11, Windows NT 6.3; Trident/7.0; rv:
 class Inflacao:
 
 	def __init__(self):
-		inflacao_url = "http://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/inflacao"
-		self.feed = feedparser.parse(inflacao_url, agent=USER_AGENT)
+		self.inflacao_url = "http://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/inflacao"
+		self.feed = feedparser.parse(self.inflacao_url, agent=USER_AGENT)
 
 	def get_meta_tax(self):
 		feed = self.feed
@@ -20,7 +20,7 @@ class Inflacao:
 				tax = re.search('<div id=label>Meta</div><div id=rate><div id=value>(\d+,\d+)</div>', inflacao).group(1)
 			return tax
 		else: 
-			return ("Site error %s" % inflacao_url)
+			return ("URL error %s" % self.inflacao_url)
 
 	def get_acumulada_tax(self):
 		feed = self.feed
@@ -30,13 +30,13 @@ class Inflacao:
 				tax = re.search('<div id=label>Acumulada</div><div id=rate><div id=value>(\d+,\d+)</div>', inflacao).group(1)
 			return tax
 		else: 
-			return ("Site error %s" % inflacao_url)
+			return ("Site error %s" % self.inflacao_url)
 
 class Poupanca:
 
 	def __init__(self):
-		poupanca_url = "http://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/poupanca"
-		self.feed = feedparser.parse(poupanca_url, agent=USER_AGENT)
+		self.poupanca_url = "http://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/poupanca"
+		self.feed = feedparser.parse(self.poupanca_url, agent=USER_AGENT)
 
 	def get_poupanca_tax(self):
 		feed = self.feed
@@ -46,13 +46,13 @@ class Poupanca:
 				tax = re.search('<div id=value>(\d+,\d+)</div>', poupanca).group(1)
 			return tax
 		else: 
-			return ("Site error %s" % poupanca_url)
+			return ("URL error %s" % self.poupanca_url)
 
 class Dolar:
 
 	def __init__(self):
-		dolar_url = "http://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/cambio"
-		self.feed = feedparser.parse(dolar_url, agent=USER_AGENT)
+		self.dolar_url = "http://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/cambio"
+		self.feed = feedparser.parse(self.dolar_url, agent=USER_AGENT)
 
 	def get_dolar_compra(self):
 		feed = self.feed
@@ -67,7 +67,7 @@ class Dolar:
 			return compra
 
 		else: 
-			return ("Site error %s" % dolar_url)
+			return ("URL error %s" % self.dolar_url)
 
 	def get_dolar_venda(self):
 		feed = self.feed
@@ -80,13 +80,13 @@ class Dolar:
 				venda = re.search('<div id=rate><div id=label>Venda</div><div id=value>(\d+,\d+)</div>', tax).group(1)
 			return venda
 		else: 
-			return ("Site error %s" % dolar_url)
+			return ("Site error %s" % self.dolar_url)
 
 class Selic:
 
 	def __init__(self):
-		selic_url = "http://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/juros"
-		self.feed = feedparser.parse(selic_url, agent=USER_AGENT)
+		self.selic_url = "http://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/juros"
+		self.feed = feedparser.parse(self.selic_url, agent=USER_AGENT)
 
 	def get_selic_meta(self):
 		feed = self.feed
@@ -96,7 +96,7 @@ class Selic:
 				selic_meta = re.search('<div id=label>Meta:</div><div id=rate><div id=ratevalue>(\d+,\d+)</div>', selic).group(1)
 			return selic_meta
 		else: 
-			return ("Site error %s" % selic_url)
+			return ("Site error %s" % self.selic_url)
 
 	def get_selic_real(self):
 		feed = self.feed
@@ -106,4 +106,4 @@ class Selic:
 				selic_real = re.search('<div id=dailyrate><div id=dailyratevalue>(\d+,\d+)</div>', selic).group(1)
 			return selic_real
 		else: 
-			return ("Site error %s" % selic_url)
+			return ("Site error %s" % self.selic_url)
