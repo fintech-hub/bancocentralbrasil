@@ -1,6 +1,6 @@
 # Banco Central do Brasil
 
-[![PyPI version](https://badge.fury.io/py/bancocentralbrasil.svg?1.0](http://badge.fury.io/py/bancocentralbrasil.svg) 
+[![PyPI version](https://badge.fury.io/py/bancocentralbrasil.svg?1.0)](http://badge.fury.io/py/bancocentralbrasil.svg)
 [![Build Status](https://travis-ci.org/leogregianin/bancocentralbrasil.svg)](https://travis-ci.org/leogregianin/bancocentralbrasil)
 [![codecov](https://codecov.io/gh/leogregianin/bancocentralbrasil/branch/master/graph/badge.svg)](https://codecov.io/gh/leogregianin/bancocentralbrasil)
 
