@@ -1,6 +1,8 @@
 # Banco Central do Brasil
 
 [![Build Status](https://travis-ci.org/leogregianin/bancocentralbrasil.svg)](https://travis-ci.org/leogregianin/bancocentralbrasil)
+[![Code Climate](https://codeclimate.com/github/leogregianin/bancocentralbrasil/badges/gpa.svg)](https://codeclimate.com/github/leogregianin/bancocentralbrasil) 
+[![Test Coverage](https://codeclimate.com/github/leogregianin/bancocentralbrasil/badges/coverage.svg)](https://codeclimate.com/github/leogregianin/bancocentralbrasil/coverage)
 
 Sobre
 -------
