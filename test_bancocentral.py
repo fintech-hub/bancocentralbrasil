@@ -2,10 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import unittest
-from bancocentral import Inflacao
-from bancocentral import Poupanca
-from bancocentral import Dolar
-from bancocentral import Selic
+from bancocentral import Inflacao, Poupanca, Dolar, Selic
 
 class TestCase(unittest.TestCase):
 
