@@ -4,11 +4,11 @@ python:
   - "3.6"
 install: 
   - pip install -r requirements.txt
-  - pip install coverage
+  - pip install codecov
 script:
   - python test_bancocentral.py
 after_success: 
-  - coverage run bancocentral.py test
-  - coverage report
+  - coverage run test_bancocentral.py
+  - codecov
 notifications:
     email: true
