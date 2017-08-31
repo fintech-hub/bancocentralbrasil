@@ -1,5 +1,7 @@
 # Banco Central do Brasil
 
+[![Build Status](https://travis-ci.org/leogregianin/bancocentral.svg)](https://travis-ci.org/leogregianin/bancocentral)
+
 Sobre
 -------
 
@@ -49,5 +51,3 @@ Licença
 -------
 
 [Licença MIT](LICENSE)
- 
-   
