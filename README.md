@@ -1,6 +1,6 @@
 # Banco Central do Brasil
 
-[![Build Status](https://travis-ci.org/leogregianin/bancocentral.svg)](https://travis-ci.org/leogregianin/bancocentral)
+[![Build Status](https://travis-ci.org/leogregianin/bancocentralbrasil.svg)](https://travis-ci.org/leogregianin/bancocentralbrasil)
 
 Sobre
 -------
