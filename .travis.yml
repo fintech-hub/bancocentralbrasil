@@ -1,10 +1,26 @@
+env:
+  global:
+    - CC_TEST_REPORTER_ID=318d3e3ee812eef83f1c4c64f038f0a2bff6503f46f4413471909a38a8d1c854
+    - GIT_COMMITTED_AT=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then git log -1 --pretty=format:%ct; else git log -1 --skip 1 --pretty=format:%ct; fi)
 language: python
 python:
   - "3.4"
   - "3.6"
 install: 
   - pip install -r requirements.txt
-script: 
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+script:
   - python test_bancocentral.py
+after_script:
+  # Preferably you will run test-reporter on branch update events. But 
+  # if you setup travis to build PR updates only, you don't need to run 
+  # the line below
+  - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
+  # In the case where travis is setup to build PR updates only, 
+  # uncomment the line below
+  # - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT	
 notifications:
     email: true
