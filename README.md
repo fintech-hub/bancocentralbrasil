@@ -2,7 +2,8 @@
 
 [![PyPI version](https://badge.fury.io/py/bancocentralbrasil.svg?1.1.0)](https://pypi.python.org/pypi/bancocentralbrasil/1.1.0)
 [![Build Status](https://travis-ci.org/leogregianin/bancocentralbrasil.svg)](https://travis-ci.org/leogregianin/bancocentralbrasil)
-[![codecov](https://codecov.io/gh/leogregianin/bancocentralbrasil/branch/master/graph/badge.svg)](https://codecov.io/gh/leogregianin/bancocentralbrasil)
+[![codecov](https://codecov.io/gh/leogregianin/bancocentralbrasil/branch/master/graph/badge.svg)](https://codecov.io/gh/leogregianin/bancocentralbrasil) [![github closed issues](https://img.shields.io/github/issues-closed-raw/leogregianin/bancocentralbrasil.svg?style=flat-square)](https://github.com/leogregianin/bancocentralbrasil/issues?q=is%3Aissue+is%3Aclosed)
+
 
 Sobre
 -------
