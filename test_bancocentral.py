@@ -13,7 +13,6 @@ class TestCase(unittest.TestCase):
 
 	def test_inflacao_meta_maior_zero(self):
 		inflacao = Inflacao()
-		#inflacao_meta = float(inflacao.get_meta_tax().replace(',','.'))
 		self.assertTrue(inflacao.get_meta_tax() > 0)
 
 	def test_inflacao_acumulada(self):
@@ -22,7 +21,6 @@ class TestCase(unittest.TestCase):
 
 	def test_inflacao_acumulada_maior_zero(self):
 		inflacao = Inflacao()
-		#inflacao_acumulada = float(inflacao.get_acumulada_tax().replace(',','.'))
 		self.assertTrue(inflacao.get_acumulada_tax() > 0)
 
 	""" Poupança """
@@ -32,7 +30,6 @@ class TestCase(unittest.TestCase):
 
 	def test_poupanca_maior_zero(self):
 		poupanca = Poupanca()
-		#poupanca_tax = float(poupanca.get_poupanca_tax().replace(',','.'))
 		self.assertTrue(poupanca.get_poupanca_tax() > 0)
 
 	""" Dólar """
@@ -42,7 +39,6 @@ class TestCase(unittest.TestCase):
 
 	def test_dolar_compra_maior_zero(self):
 		dolar = Dolar()
-		#dolar_compra = float(dolar.get_dolar_compra().replace(',','.'))
 		self.assertTrue(dolar.get_dolar_compra() > 0)
 
 	def test_dolar_venda(self):
@@ -51,7 +47,6 @@ class TestCase(unittest.TestCase):
 
 	def test_dolar_venda_maior_zero(self):
 		dolar = Dolar()
-		#dolar_venda = float(dolar.get_dolar_venda().replace(',','.'))
 		self.assertTrue(dolar.get_dolar_venda() > 0)
 
 	""" Euro """
@@ -61,7 +56,6 @@ class TestCase(unittest.TestCase):
 
 	def test_euro_compra_maior_zero(self):
 		euro = Euro()
-		#dolar_compra = float(dolar.get_dolar_compra().replace(',','.'))
 		self.assertTrue(euro.get_euro_compra() > 0)
 
 	def test_euro_venda(self):
@@ -70,7 +64,6 @@ class TestCase(unittest.TestCase):
 
 	def test_euro_venda_maior_zero(self):
 		euro = Euro()
-		#dolar_venda = float(dolar.get_dolar_venda().replace(',','.'))
 		self.assertTrue(euro.get_euro_venda() > 0)
 
 	""" Taxa Selic """
@@ -80,7 +73,6 @@ class TestCase(unittest.TestCase):
 
 	def test_selic_meta_maior_zero(self):
 		selic = Selic()
-		#selic_meta = float(selic.get_selic_meta().replace(',','.'))
 		self.assertTrue(selic.get_selic_meta() > 0)
 
 	def test_selic_real(self):
@@ -89,7 +81,6 @@ class TestCase(unittest.TestCase):
 
 	def test_selic_real_maior_zero(self):
 		selic = Selic()
-		#selic_real = float(selic.get_selic_real().replace(',','.'))
 		self.assertTrue(selic.get_selic_real() > 0)
 
 if __name__ == '__main__':
