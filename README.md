@@ -8,7 +8,7 @@
 Sobre
 -------
 
-  * Obtenção de informações sobre taxas oficiais diárias de Inflação, Selic, Poupança e Dólar direto do site do Banco Central do Brasil (http://www.bcb.gov.br)
+  * Informações sobre taxas oficiais diárias de **Inflação**, **Selic**, **Poupança** e **Dólar** e **Euro** pelo site do Banco Central do Brasil (http://www.bcb.gov.br).
    
 Pré requisitos
 -------
@@ -26,28 +26,42 @@ Utilização
 -------
 
 ```bash
-$ python sample.py
-Inflacao Meta: 4,5
-Inflacao acumulada 12 ultimos meses: 9,32
-Poupanca: 0,7537
-Dolar compra: 3,3197
-Dolar venda: 3,3203
-Selic meta: 14,25
-Selic real: 14,15
+$ python .\sample.py
+Inflação Meta: 4.5
+Inflação acumulada 12 últimos meses: 2.95
+Poupança: 0,3994
+Dólar compra: 3,135
+Dólar venda: 3,1356
+Euro compra: 3,8999
+Euro venda: 3,9016
+Selic meta: 7
+Selic real: 6,9
 ```
 
 ```bash
 >>> import bancocentral
->>> infl = bancocentral.Inflacao()
->>> print('%s' % infl.get_acumulada_tax())
-9,32
+>>> inflacao = bancocentral.Inflacao()
+>>> print('%s' % inflacao.get_acumulada_tax())
+2,95
 ```
 
 ```bash
 >>> import bancocentral
 >>> selic = bancocentral.Selic()
 >>> selic.get_selic_meta()
-'14,25'
+7
+```
+
+Unittests
+---------
+
+```bash
+$ python .\test_bancocentral.py
+..................
+----------------------------------------------------------------------
+Ran 18 tests in 2.243s
+
+OK
 ```
 
 Licença
