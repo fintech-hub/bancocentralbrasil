@@ -19,8 +19,6 @@ class Inflacao:
 				inflacao = item['summary']
 				tax = re.search('<div id=label>Meta</div><div id=rate><div id=value>(\d*\,?\d+)</div>', inflacao).group(1)
 			return float(tax.replace(',','.'))
-		else: 
-			return ("URL error %s" % self.inflacao_url)
 
 	def get_acumulada_tax(self):
 		feed = self.feed
@@ -29,8 +27,6 @@ class Inflacao:
 				inflacao = item['summary']
 				tax = re.search('<div id=label>Acumulada</div><div id=rate><div id=value>(\d*\,?\d+)</div>', inflacao).group(1)
 			return float(tax.replace(',','.'))
-		else: 
-			return ("Site error %s" % self.inflacao_url)
 
 class Poupanca:
 
@@ -45,8 +41,6 @@ class Poupanca:
 				poupanca = item['summary']
 				tax = re.search('<div id=value>(\d*\,?\d+)</div>', poupanca).group(1)
 			return float(tax.replace(',','.'))
-		else: 
-			return ("URL error %s" % self.poupanca_url)
 
 class Dolar:
 
@@ -64,8 +58,6 @@ class Dolar:
 				tax = item['summary']
 				compra = re.search('<div id=rate><div id=label>Compra</div><div id=value>(\d*\,?\d+)</div>', tax).group(1)
 			return float(compra.replace(',','.'))
-		else: 
-			return ("URL error %s" % self.dolar_url)
 
 	def get_dolar_venda(self):
 		feed = self.feed
@@ -77,8 +69,6 @@ class Dolar:
 				tax = item['summary']
 				venda = re.search('<div id=rate><div id=label>Venda</div><div id=value>(\d*\,?\d+)</div>', tax).group(1)
 			return float(venda.replace(',','.'))
-		else: 
-			return ("Site error %s" % self.dolar_url)
 
 class Euro:
 
@@ -96,8 +86,6 @@ class Euro:
 				tax = item['summary']
 				compra = re.search('<div id=rate><div id=label>Compra</div><div id=value>(\d*\,?\d+)</div>', tax).group(1)
 			return float(compra.replace(',','.'))
-		else: 
-			return ("URL error %s" % self.euro_url)
 
 	def get_euro_venda(self):
 		feed = self.feed
@@ -109,8 +97,6 @@ class Euro:
 				tax = item['summary']
 				venda = re.search('<div id=rate><div id=label>Venda</div><div id=value>(\d*\,?\d+)</div>', tax).group(1)
 			return float(venda.replace(',','.'))
-		else: 
-			return ("Site error %s" % self.euro_url)
 
 class Selic:
 
@@ -125,8 +111,6 @@ class Selic:
 				selic = item['summary']
 				selic_meta = re.search('<div id=ratevalue>(\d*\,?\d+)</div>', selic).group(1)
 			return float(selic_meta.replace(',','.'))
-		else: 
-			return ("Site error %s" % self.selic_url)
 
 	def get_selic_real(self):
 		feed = self.feed
@@ -135,6 +119,3 @@ class Selic:
 				selic = item['summary']
 				selic_real = re.search('<div id=dailyratevalue>(\d*\,?\d+)</div>', selic).group(1)
 			return float(selic_real.replace(',','.'))
-		else: 
-			return ("Site error %s" % self.selic_url)
-
