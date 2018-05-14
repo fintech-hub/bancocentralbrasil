@@ -2,7 +2,11 @@
 
 [![PyPI version](https://badge.fury.io/py/bancocentralbrasil.svg)](https://badge.fury.io/py/bancocentralbrasil)
 [![Build Status](https://travis-ci.org/leogregianin/bancocentralbrasil.svg)](https://travis-ci.org/leogregianin/bancocentralbrasil)
-[![codecov](https://codecov.io/gh/leogregianin/bancocentralbrasil/branch/master/graph/badge.svg)](https://codecov.io/gh/leogregianin/bancocentralbrasil) [![github closed issues](https://img.shields.io/github/issues-closed-raw/leogregianin/bancocentralbrasil.svg?style=flat-square)](https://github.com/leogregianin/bancocentralbrasil/issues?q=is%3Aissue+is%3Aclosed)
+[![codecov](https://codecov.io/gh/leogregianin/bancocentralbrasil/branch/master/graph/badge.svg)](https://codecov.io/gh/leogregianin/bancocentralbrasil) 
+[![GitHub issues](https://img.shields.io/github/issues/leogregianin/bancocentralbrasil.svg)](https://github.com/leogregianin/bancocentralbrasil/issues)
+[![GitHub forks](https://img.shields.io/github/forks/leogregianin/bancocentralbrasil.svg)](https://github.com/leogregianin/bancocentralbrasil/network)
+[![GitHub stars](https://img.shields.io/github/stars/leogregianin/bancocentralbrasil.svg)](https://github.com/leogregianin/bancocentralbrasil/stargazers)
+[![GitHub license](https://img.shields.io/github/license/leogregianin/bancocentralbrasil.svg)](https://github.com/leogregianin/bancocentralbrasil)
 
 
 Sobre
@@ -27,29 +31,29 @@ Utilização
 
 ```bash
 $ python .\sample.py
-Inflação Meta: 4.5
-Inflação acumulada 12 últimos meses: 2.95
-Poupança: 0,3994
-Dólar compra: 3,135
-Dólar venda: 3,1356
-Euro compra: 3,8999
-Euro venda: 3,9016
-Selic meta: 7
-Selic real: 6,9
+Inflação Meta: 4.0
+Inflação acumulada 12 últimos meses: 2.76
+Poupança: 0.3715
+Dólar compra: 3.6264
+Dólar venda: 3.627
+Euro compra: 4.3423
+Euro venda: 4.3444
+Selic meta: 6.5
+Selic real: 6.4
 ```
 
 ```bash
 >>> import bancocentral
 >>> inflacao = bancocentral.Inflacao()
 >>> print('%s' % inflacao.get_acumulada_tax())
-2,95
+2.76
 ```
 
 ```bash
 >>> import bancocentral
 >>> selic = bancocentral.Selic()
 >>> selic.get_selic_meta()
-7
+6.5
 ```
 
 Testes unitários
