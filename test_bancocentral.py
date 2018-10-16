@@ -2,15 +2,14 @@
 # -*- coding: utf-8 -*-
 
 import unittest
-from bancocentral import Inflacao, Poupanca, Dolar, Euro, Selic
+from bancocentral import Inflacao, Poupanca, Cambio, Selic
 
 class TestCase(unittest.TestCase):
 
     def setUp(self):
         self.inflacao = Inflacao()
         self.poupanca = Poupanca()
-        self.dolar = Dolar()
-        self.euro = Euro()
+        self.cambio = Cambio()
         self.selic = Selic()
 
     """ Inflação """
@@ -33,31 +32,57 @@ class TestCase(unittest.TestCase):
     def test_poupanca_maior_zero(self):
         self.assertTrue(self.poupanca.get_poupanca_tax() > 0)
 
+    """ Câmbio """
+
     """ Dólar """
     def test_dolar_compra(self):
-        self.assertIsNotNone(self.dolar.get_dolar_compra())
+        self.assertIsNotNone(self.cambio.get_dolar_compra())
+
+    def test_dolar_compra_ptax(self):
+        self.assertIsNotNone(self.cambio.get_dolar_compra_ptax())
 
     def test_dolar_compra_maior_zero(self):
-        self.assertTrue(self.dolar.get_dolar_compra() > 0)
+        self.assertTrue(self.cambio.get_dolar_compra() > 0)
+
+    def test_dolar_compra_ptax_maior_zero(self):
+        self.assertTrue(self.cambio.get_dolar_compra_ptax() > 0)
 
     def test_dolar_venda(self):
-        self.assertIsNotNone(self.dolar.get_dolar_venda())
+        self.assertIsNotNone(self.cambio.get_dolar_venda())
+
+    def test_dolar_venda_ptax(self):
+        self.assertIsNotNone(self.cambio.get_dolar_venda_ptax())
 
     def test_dolar_venda_maior_zero(self):
-        self.assertTrue(self.dolar.get_dolar_venda() > 0)
+        self.assertTrue(self.cambio.get_dolar_venda() > 0)
+
+    def test_dolar_venda_ptax_maior_zero(self):
+        self.assertTrue(self.cambio.get_dolar_venda_ptax() > 0)
 
     """ Euro """
     def test_euro_compra(self):
-        self.assertIsNotNone(self.euro.get_euro_compra())
+        self.assertIsNotNone(self.cambio.get_euro_compra())
 
     def test_euro_compra_maior_zero(self):
-        self.assertTrue(self.euro.get_euro_compra() > 0)
+        self.assertTrue(self.cambio.get_euro_compra() > 0)
 
     def test_euro_venda(self):
-        self.assertIsNotNone(self.euro.get_euro_venda())
+        self.assertIsNotNone(self.cambio.get_euro_venda())
 
     def test_euro_venda_maior_zero(self):
-        self.assertTrue(self.euro.get_euro_venda() > 0)
+        self.assertTrue(self.cambio.get_euro_venda() > 0)
+
+    def test_euro_compra_ptax(self):
+        self.assertIsNotNone(self.cambio.get_euro_compra_ptaxa())
+
+    def test_euro_compra_ptax_maior_zero(self):
+        self.assertTrue(self.cambio.get_euro_compra_ptax() > 0)
+
+    def test_euro_venda_ptax(self):
+        self.assertIsNotNone(self.cambio.get_euro_venda_ptaxa())
+
+    def test_euro_venda_ptax_maior_zero(self):
+        self.assertTrue(self.cambio.get_euro_venda_ptaxa() > 0)
 
     """ Taxa Selic """
     def test_selic_meta(self):
