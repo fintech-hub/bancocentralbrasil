@@ -12,7 +12,7 @@
 Sobre
 -------
 
-  * Informações sobre taxas oficiais diárias de **Inflação**, **Selic**, **Poupança**, **Dólar** e **Euro** pelo site do Banco Central do Brasil (http://www.bcb.gov.br).
+  * Informações sobre taxas oficiais diárias de **Inflação**, **Selic**, **Poupança**, **Dólar**, **Dólar PTAX**, **Euro** e **Euro PTAX** pelo site do Banco Central do Brasil (http://www.bcb.gov.br).
    
 Pré requisitos
 -------
