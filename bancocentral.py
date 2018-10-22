@@ -39,8 +39,6 @@ class Inflacao:
                 if self.request.status_code == 200:
                     self.req = self.request
                     break # On first response http 200, continue
-                elif self.request.status_code != 200:
-                    continue
             except requests.ConnectionError:
                 continue
 
@@ -66,8 +64,6 @@ class Poupanca:
                 if self.request.status_code == 200:
                     self.req = self.request
                     break # On first response http 200, continue
-                elif self.request.status_code != 200:
-                    continue
             except requests.ConnectionError:
                 continue
 
@@ -88,8 +84,6 @@ class Cambio:
                 if self.request.status_code == 200:
                     self.req = self.request
                     break # On first response http 200, continue
-                elif self.request.status_code != 200:
-                    continue
             except requests.ConnectionError:
                 continue
 
@@ -147,8 +141,6 @@ class Selic:
                 if self.request.status_code == 200:
                     self.req = self.request
                     break # On first response http 200, continue
-                elif self.request.status_code != 200:
-                    continue
             except requests.ConnectionError:
                 continue
 
