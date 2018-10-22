@@ -17,7 +17,7 @@ Sobre
 Pré requisitos
 -------
 
-  * Instalação de qualquer versão do Python (http://www.python.org/download)
+  * Instalação da versão do Python (http://www.python.org/download) preferencialmente 3.4 ou 3.6. 
   
 Instalação das dependências
 -------
