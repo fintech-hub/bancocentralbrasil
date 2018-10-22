@@ -73,16 +73,16 @@ class TestCase(unittest.TestCase):
         self.assertTrue(self.cambio.get_euro_venda() > 0)
 
     def test_euro_compra_ptax(self):
-        self.assertIsNotNone(self.cambio.get_euro_compra_ptaxa())
+        self.assertIsNotNone(self.cambio.get_euro_compra_ptax())
 
     def test_euro_compra_ptax_maior_zero(self):
         self.assertTrue(self.cambio.get_euro_compra_ptax() > 0)
 
     def test_euro_venda_ptax(self):
-        self.assertIsNotNone(self.cambio.get_euro_venda_ptaxa())
+        self.assertIsNotNone(self.cambio.get_euro_venda_ptax())
 
     def test_euro_venda_ptax_maior_zero(self):
-        self.assertTrue(self.cambio.get_euro_venda_ptaxa() > 0)
+        self.assertTrue(self.cambio.get_euro_venda_ptax() > 0)
 
     """ Taxa Selic """
     def test_selic_meta(self):
