@@ -4,20 +4,38 @@
 import requests
 import re
 
-headers = {
-    'Host': 'conteudo.bcb.gov.br',
-    'Connection': 'keep-alive',
-    'Cache-Control': 'max-age=0',
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
-    'DNT': '1',
-    'Content-Type': 'application/atom+xml',
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
-    'Accept-Encoding': 'gzip, deflate, br',
-    'Accept-Language': 'pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7,mt;q=0.6'
-}
-
 class BancoCentralException(BaseException):
     pass
+
+class AcessarBancoCentral:
+    
+    def __init__(self, url):
+        self.url = url
+
+    def getURL(self):
+        headers = {
+            'Host': 'conteudo.bcb.gov.br',
+            'Connection': 'keep-alive',
+            'Cache-Control': 'max-age=0',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+            'DNT': '1',
+            'Content-Type': 'application/atom+xml',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Accept-Language': 'pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7,mt;q=0.6'
+        }
+
+        # Server very unstable. Test 10x http 200 response
+        for index in range(10):
+            try:
+                request = requests.get(self.url, headers=headers, timeout=None)
+                if request.status_code == 200:
+                    return request
+                    break # On first response http 200, continue
+                elif request.status_code != 200:
+                    continue
+            except requests.ConnectionError:
+                continue
 
 def cleanContent(content):
     fix = {'&lt;': '<', '&gt;': '>'}
@@ -31,16 +49,8 @@ class Inflacao:
 
     def __init__(self):
         self.query_url = "https://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/inflacao"
-
-        # Server very unstable. Test 10x http 200 response
-        for index in range(10):
-            try:
-                self.request = requests.get(self.query_url, headers=headers, timeout=None)
-                if self.request.status_code == 200:
-                    self.req = self.request
-                    break # On first response http 200, continue
-            except requests.ConnectionError:
-                continue
+        acesso = AcessarBancoCentral(self.query_url)
+        self.req = acesso.getURL()
 
     def get_meta_tax(self):
         inflacao = cleanContent(self.req.content.decode('utf-8'))
@@ -56,16 +66,8 @@ class Poupanca:
 
     def __init__(self):
         self.query_url = "https://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/poupanca"
-        
-        # Server very unstable. Test 10x http 200 response
-        for index in range(10):
-            try:
-                self.request = requests.get(self.query_url, headers=headers, timeout=None)
-                if self.request.status_code == 200:
-                    self.req = self.request
-                    break # On first response http 200, continue
-            except requests.ConnectionError:
-                continue
+        acesso = AcessarBancoCentral(self.query_url)
+        self.req = acesso.getURL()
 
     def get_poupanca_tax(self):
         poupanca = cleanContent(self.req.content.decode('utf-8'))
@@ -76,17 +78,8 @@ class Cambio:
 
     def __init__(self):
         self.query_url = "https://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/cambio"
-
-        # Server very unstable. Test 10x http 200 response
-        for index in range(10):
-            try:
-                self.request = requests.get(self.query_url, headers=headers, timeout=None)
-                if self.request.status_code == 200:
-                    self.req = self.request
-                    break # On first response http 200, continue
-            except requests.ConnectionError:
-                continue
-
+        acesso = AcessarBancoCentral(self.query_url)
+        self.req = acesso.getURL()
         self.cambio = cleanContent(self.req.content.decode('utf-8'))
 
     def get_dolar_compra_ptax(self):
@@ -133,16 +126,8 @@ class Selic:
 
     def __init__(self): 
         self.query_url = "https://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/juros"
-
-        # Server very unstable. Test 10x http 200 response
-        for index in range(10):
-            try:
-                self.request = requests.get(self.query_url, headers=headers, timeout=None)
-                if self.request.status_code == 200:
-                    self.req = self.request
-                    break # On first response http 200, continue
-            except requests.ConnectionError:
-                continue
+        acesso = AcessarBancoCentral(self.query_url)
+        self.req = acesso.getURL()
 
     def get_selic_meta(self):
         selic = cleanContent(self.req.content.decode('utf-8'))
