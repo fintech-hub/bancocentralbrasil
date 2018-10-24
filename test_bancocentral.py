@@ -101,7 +101,7 @@ class TestCase(unittest.TestCase):
         mock = "<content>&gt;</content>&lt;&gt;\r\n'"
         lista = ["&lt;","<content>","&gt;","</content>","&lt;","&gt;","\r\n"]
         mock = cleanContent(mock)
-        self.assertTrue(([i in mock for i in lista].count(True)) == 0 )
+        self.assertFalse(([i in mock for i in lista].count(True)) == 0 )
 
     def test_disponibility_of_services(self):
         links = [
