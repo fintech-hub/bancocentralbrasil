@@ -31,7 +31,6 @@ class AcessarBancoCentral:
                 request = requests.get(self.url, headers=headers, timeout=None)
                 if request.status_code == 200:
                     return request
-                    break # On first response http 200, continue
                 elif request.status_code != 200:
                     continue
             except requests.ConnectionError:
