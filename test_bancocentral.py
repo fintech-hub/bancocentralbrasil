@@ -7,6 +7,14 @@ from bancocentral import AcessarBancoCentral
 from bancocentral import Inflacao, Poupanca, Cambio, Selic
 
 
+def request_com_erro():
+    return MagicMock(status_code=503)
+
+
+def request_bem_sucedido():
+    return MagicMock(status_code=200)
+
+
 class TestCase(unittest.TestCase):
 
     def setUp(self):
@@ -15,30 +23,25 @@ class TestCase(unittest.TestCase):
         self.cambio = Cambio()
         self.selic = Selic()
 
+        self.acesso = AcessarBancoCentral('http://my.url')
+
     """ Retry """
-    @patch('bancocentral.requests.get')
+    @patch('bancocentral.requests.get', return_value=request_com_erro())
     def test_nao_retorna_request_com_erro(self, mock_request):
-        mock_request.return_value.status_code = 503
+        self.assertIsNone(self.acesso.getURL())
 
-        acesso = AcessarBancoCentral('http://my.url')
-        self.assertIsNone(acesso.getURL())
-
-    @patch('bancocentral.requests.get')
-    def test_retorna_request_sem_erro(self, mock_request):
-        mock_request.return_value.status_code = 200
-
-        acesso = AcessarBancoCentral('http://my.url')
-        self.assertIsNotNone(acesso.getURL())
+    @patch('bancocentral.requests.get', return_value=request_bem_sucedido())
+    def test_retorna_request_bem_sucedido(self, mock_request):
+        response = self.acesso.getURL()
+        self.assertIsNotNone(response)
+        self.assertEqual(response.status_code, 200)
 
     @patch('bancocentral.requests.get')
     def test_repete_request_enquanto_receber_erros(self, mock_request):
-        retorno_com_erro = MagicMock(status_code=503)
-        retorno_sem_erro = MagicMock(status_code=200)
-        retornos = iter([retorno_com_erro, retorno_sem_erro])
-        mock_request.side_effect = lambda *args, **kwargs: next(retornos)
+        requests = iter([request_com_erro(), request_bem_sucedido()])
+        mock_request.side_effect = lambda *args, **kwargs: next(requests)
 
-        acesso = AcessarBancoCentral('http://my.url')
-        self.assertIsNotNone(acesso.getURL())
+        self.assertIsNotNone(self.acesso.getURL())
 
     """ Inflação """
     def test_inflacao_meta(self):
