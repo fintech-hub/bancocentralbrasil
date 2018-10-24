@@ -2,7 +2,18 @@
 # -*- coding: utf-8 -*-
 
 import unittest
+from unittest.mock import patch, MagicMock
+from bancocentral import AcessarBancoCentral
 from bancocentral import Inflacao, Poupanca, Cambio, Selic
+
+
+def request_com_erro():
+    return MagicMock(status_code=503)
+
+
+def request_bem_sucedido():
+    return MagicMock(status_code=200)
+
 
 class TestCase(unittest.TestCase):
 
@@ -11,6 +22,26 @@ class TestCase(unittest.TestCase):
         self.poupanca = Poupanca()
         self.cambio = Cambio()
         self.selic = Selic()
+
+        self.acesso = AcessarBancoCentral('http://my.url')
+
+    """ Retry """
+    @patch('bancocentral.requests.get', return_value=request_com_erro())
+    def test_nao_retorna_request_com_erro(self, mock_request):
+        self.assertIsNone(self.acesso.getURL())
+
+    @patch('bancocentral.requests.get', return_value=request_bem_sucedido())
+    def test_retorna_request_bem_sucedido(self, mock_request):
+        response = self.acesso.getURL()
+        self.assertIsNotNone(response)
+        self.assertEqual(response.status_code, 200)
+
+    @patch('bancocentral.requests.get')
+    def test_repete_request_enquanto_receber_erros(self, mock_request):
+        requests = iter([request_com_erro(), request_bem_sucedido()])
+        mock_request.side_effect = lambda *args, **kwargs: next(requests)
+
+        self.assertIsNotNone(self.acesso.getURL())
 
     """ Inflação """
     def test_inflacao_meta(self):
@@ -96,6 +127,7 @@ class TestCase(unittest.TestCase):
 
     def test_selic_real_maior_zero(self):
         self.assertTrue(self.selic.get_selic_real() > 0)
+
 
 if __name__ == '__main__':
     unittest.main()
