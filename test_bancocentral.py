@@ -96,6 +96,22 @@ class TestCase(unittest.TestCase):
 
     def test_selic_real_maior_zero(self):
         self.assertTrue(self.selic.get_selic_real() > 0)
+        
+    def test_cleanContent(self):
+        mock = "<content>&gt;</content>&lt;&gt;\r\n'"
+        lista = ["&lt;","<content>","&gt;","</content>","&lt;","&gt;","\r\n"]
+        mock = cleanContent(mock)
+        self.assertTrue(([i in mock for i in lista].count(True)) == 0 )
+
+    def test_disponibility_of_services(self):
+        links = [
+        "https://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/inflacao"
+        ,"https://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/poupanca"
+        ,"https://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/cambio"
+        ,"https://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/juros"
+        ]
+        for i in [ requests.get(link) for link in links]:
+            elf.assertTrue(i.status_code == 200)
 
 if __name__ == '__main__':
     unittest.main()
