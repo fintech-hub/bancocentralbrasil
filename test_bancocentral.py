@@ -4,7 +4,7 @@
 import unittest
 from unittest.mock import patch, MagicMock
 from bancocentral import AcessarBancoCentral
-from bancocentral import Inflacao, Poupanca, Cambio, Selic
+from bancocentral import Inflacao, Poupanca, Cambio, Selic, cleanContent
 
 
 def request_com_erro():
@@ -127,7 +127,13 @@ class TestCase(unittest.TestCase):
 
     def test_selic_real_maior_zero(self):
         self.assertTrue(self.selic.get_selic_real() > 0)
-
+        
+    """ clean Content """
+    def test_cleanContent(self):
+        mock = "<content>&gt;</content>&lt;&gt;\r\n'"
+        lista = ["&lt;","<content>","&gt;","</content>","&lt;","&gt;","\r\n"]
+        mock = cleanContent(mock)
+        self.assertFalse(([i in mock for i in lista].count(True)) == 0 )
 
 if __name__ == '__main__':
     unittest.main()
