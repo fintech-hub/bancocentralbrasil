@@ -44,10 +44,11 @@ def cleanContent(content):
     content = content.replace('/>    <content', '/> <content')
     return content
 
+
 class Inflacao:
 
     def __init__(self):
-        self.query_url = "https://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/inflacao"
+        self.query_url = 'https://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/inflacao'
         acesso = AcessarBancoCentral(self.query_url)
         self.req = acesso.getURL()
 
@@ -61,10 +62,11 @@ class Inflacao:
         tax = re.search('<div id=label>Acumulada</div><div id=rate><div id=value>(\d*\,?\d+)</div>', inflacao).group(1)
         return float(tax.replace(',','.'))
 
+
 class Poupanca:
 
     def __init__(self):
-        self.query_url = "https://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/poupanca"
+        self.query_url = 'https://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/poupanca'
         acesso = AcessarBancoCentral(self.query_url)
         self.req = acesso.getURL()
 
@@ -73,58 +75,60 @@ class Poupanca:
         tax = re.search('<div id=value>(\d*\,?\d+)</div>', poupanca).group(1)
         return float(tax.replace(',','.'))
 
+
 class Cambio:
 
     def __init__(self):
-        self.query_url = "https://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/cambio"
+        self.query_url = 'https://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/cambio'
         acesso = AcessarBancoCentral(self.query_url)
         self.req = acesso.getURL()
         self.cambio = cleanContent(self.req.content.decode('utf-8'))
 
     def get_dolar_compra_ptax(self):
-        data = re.search('INDICADOR_CAMBIO_DOLAR_PTAX" />(.*)</entry>', self.cambio).group(1)
+        data = re.search('INDICADOR_CAMBIO_DOLAR_PTAX(.*)</entry>', self.cambio).group(1)
         compra = re.search('<div id=rate><div id=label>Compra</div><div id=value>(\d*\,?\d+)</div>', data).group(1)
         return float(compra.replace(',','.'))
 
     def get_dolar_venda_ptax(self):
-        data = re.search('INDICADOR_CAMBIO_DOLAR_PTAX" />(.*)</entry>', self.cambio).group(1)
+        data = re.search('INDICADOR_CAMBIO_DOLAR_PTAX(.*)</entry>', self.cambio).group(1)
         venda = re.search('<div id=rate><div id=label>Venda</div><div id=value>(\d*\,?\d+)</div>', data).group(1)
         return float(venda.replace(',','.'))
 
     def get_dolar_compra(self):
-        data = re.search('INDICADOR_CAMBIO_DOLAR" />(.*)</entry>', self.cambio).group(1)
+        data = re.search('INDICADOR_CAMBIO_DOLAR(.*)</entry>', self.cambio).group(1)
         compra = re.search('<div id=rate><div id=label>Compra</div><div id=value>(\d*\,?\d+)</div>', data).group(1)
         return float(compra.replace(',','.'))
 
     def get_dolar_venda(self):
-        data = re.search('INDICADOR_CAMBIO_DOLAR" />(.*)</entry>', self.cambio).group(1)
+        data = re.search('INDICADOR_CAMBIO_DOLAR(.*)</entry>', self.cambio).group(1)
         venda = re.search('<div id=rate><div id=label>Venda</div><div id=value>(\d*\,?\d+)</div>', data).group(1)
         return float(venda.replace(',','.'))
 
     def get_euro_compra_ptax(self):
-        data = re.search('INDICADOR_CAMBIO_EURO_PTAX" />(.*)</entry>', self.cambio).group(1)
+        data = re.search('INDICADOR_CAMBIO_EURO_PTAX(.*)</entry>', self.cambio).group(1)
         compra = re.search('<div id=rate><div id=label>Compra</div><div id=value>(\d*\,?\d+)</div>', data).group(1)
         return float(compra.replace(',','.'))
 
     def get_euro_venda_ptax(self):
-        data = re.search('INDICADOR_CAMBIO_EURO_PTAX" />(.*)</entry>', self.cambio).group(1)
+        data = re.search('INDICADOR_CAMBIO_EURO_PTAX(.*)</entry>', self.cambio).group(1)
         venda = re.search('<div id=rate><div id=label>Venda</div><div id=value>(\d*\,?\d+)</div>', data).group(1)
         return float(venda.replace(',','.'))
 
     def get_euro_compra(self):
-        data = re.search('INDICADOR_CAMBIO_EURO" />(.*)</entry>', self.cambio).group(1)
+        data = re.search('INDICADOR_CAMBIO_EURO(.*)</entry>', self.cambio).group(1)
         compra = re.search('<div id=rate><div id=label>Compra</div><div id=value>(\d*\,?\d+)</div>', data).group(1)
         return float(compra.replace(',','.'))
 
     def get_euro_venda(self):
-        data = re.search('INDICADOR_CAMBIO_EURO" />(.*)</entry>', self.cambio).group(1)
+        data = re.search('INDICADOR_CAMBIO_EURO(.*)</entry>', self.cambio).group(1)
         venda = re.search('<div id=rate><div id=label>Venda</div><div id=value>(\d*\,?\d+)</div>', data).group(1)
         return float(venda.replace(',','.'))
+
 
 class Selic:
 
     def __init__(self): 
-        self.query_url = "https://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/juros"
+        self.query_url = 'https://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/juros'
         acesso = AcessarBancoCentral(self.query_url)
         self.req = acesso.getURL()
 
