@@ -2,7 +2,8 @@
 
 [![PyPI version](https://badge.fury.io/py/bancocentralbrasil.svg)](https://badge.fury.io/py/bancocentralbrasil)
 [![Build Status](https://travis-ci.org/leogregianin/bancocentralbrasil.svg)](https://travis-ci.org/leogregianin/bancocentralbrasil)
-[![codecov](https://codecov.io/gh/leogregianin/bancocentralbrasil/branch/master/graph/badge.svg)](https://codecov.io/gh/leogregianin/bancocentralbrasil) 
+[![codecov](https://codecov.io/gh/leogregianin/bancocentralbrasil/branch/master/graph/badge.svg)](https://codecov.io/gh/leogregianin/bancocentralbrasil) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fleogregianin%2Fbancocentralbrasil.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fleogregianin%2Fbancocentralbrasil?ref=badge_shield)
+
 [![GitHub issues](https://img.shields.io/github/issues/leogregianin/bancocentralbrasil.svg)](https://github.com/leogregianin/bancocentralbrasil/issues)
 [![GitHub forks](https://img.shields.io/github/forks/leogregianin/bancocentralbrasil.svg)](https://github.com/leogregianin/bancocentralbrasil/network)
 [![GitHub stars](https://img.shields.io/github/stars/leogregianin/bancocentralbrasil.svg)](https://github.com/leogregianin/bancocentralbrasil/stargazers)
@@ -76,3 +77,7 @@ Licença
 -------
 
 [Licença MIT](LICENSE)
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fleogregianin%2Fbancocentralbrasil.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fleogregianin%2Fbancocentralbrasil?ref=badge_large)
