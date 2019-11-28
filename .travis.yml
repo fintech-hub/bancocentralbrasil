@@ -8,7 +8,7 @@ install:
   - pip install -r requirements.txt
   - pip install codecov
 script:
-  - python .\bancocentralbrasil\test_bancocentral.py
+  - python .\tests\test_bancocentral.py
 after_success: 
   - coverage run .\tests\test_bancocentral.py
   - codecov
