@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from bancocentral import Inflacao, Poupanca, Cambio, Selic
+from bc.bancocentral import Inflacao, Poupanca, Cambio, Selic
 
 inflacao = Inflacao()
 print(u'Inflação Meta: %s' % inflacao.get_meta_tax())

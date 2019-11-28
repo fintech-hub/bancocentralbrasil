@@ -88,3 +88,10 @@ ENV/
 
 # Rope project settings
 .ropeproject
+/.pypirc
+/.idea/.gitignore
+/.idea/bancocentralbrasil.iml
+/.idea/inspectionProfiles/profiles_settings.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/vcs.xml
