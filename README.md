@@ -30,7 +30,7 @@ Instalação
 -------
 
 ```bash
-$ pip setup.py install
+$ python setup.py install
 ```
 
 Utilização
