@@ -7,10 +7,11 @@ python:
 install: 
   - pip install -r requirements.txt
   - pip install codecov
+  - python setup.py install
 script:
-  - python tests/test_bancocentral.py
+  - python ./tests/test_bancocentral.py
 after_success: 
-  - coverage run tests/test_bancocentral.py
+  - coverage run ./tests/test_bancocentral.py
   - codecov
 notifications:
     email: true
