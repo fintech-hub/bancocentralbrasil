@@ -17,13 +17,20 @@ Sobre
 Pré requisitos
 -------
 
-  * Instalação da versão do Python (http://www.python.org/download) preferencialmente 3.4 ou 3.6. 
+  * Instalação da versão do Python >= 3.x (http://www.python.org/download)
   
 Instalação das dependências
 -------
 
 ```bash
 $ pip install -r requirements.txt
+```
+
+Instalação
+-------
+
+```bash
+$ pip setup.py install
 ```
 
 Utilização
