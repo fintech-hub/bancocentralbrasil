@@ -10,8 +10,8 @@ setup(
     keywords='dolar money bancocentralbrasil tax brasil',
     description='Selic Rate, Inflation and Dollar Exchange from Brazil',
     packages=find_packages(),
-    platforms = 'any',
-    classifiers = [
+    platforms='any',
+    classifiers=[
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
@@ -24,7 +24,7 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
         'Topic :: Software Development :: Libraries :: Python Modules'
-    ],	
+    ],
     install_requires=[],
     test_suite='test',
 )
