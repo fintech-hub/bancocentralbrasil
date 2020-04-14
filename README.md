@@ -79,6 +79,11 @@ Ran 30 tests in 47.580s
 OK
 ```
 
+## Agradecimentos
+---------
+<a href="https://www.jetbrains.com/pycharm/?from=bancocentralbrasil"><img src="jetbrains-variant-4.png" alt="JetBrains" width="80"></a> A JetBrains pelo fornecimento da licença do PyCharm para desenvolvimento desta biblioteca.
+
+
 Licença
 -------
 
