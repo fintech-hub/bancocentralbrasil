@@ -30,14 +30,14 @@ Instalação
 -------
 
 ```bash
-$ python setup.py install
+$ ./setup.py install
 ```
 
 Utilização
 -------
 
 ```bash
-$ python .\sample.py
+$ ./sample.py
 Inflação Meta: 4.0
 Inflação acumulada 12 últimos meses: 4.53
 Poupança: 0.3715
@@ -54,14 +54,14 @@ Selic real: 6.4
 ```
 
 ```bash
->>> import bancocentral
->>> inflacao = bancocentral.Inflacao()
+>>> from bc.bancocentral import Inflacao
+>>> inflacao = Inflacao()
 >>> print('%s' % inflacao.get_acumulada_tax())
 4.53
 ```
 
 ```bash
->>> import bancocentral
+>>> from bc.bancocentral import Selic
 >>> selic = bancocentral.Selic()
 >>> selic.get_selic_meta()
 6.5
@@ -71,7 +71,7 @@ Testes unitários
 ---------
 
 ```bash
-$ python .\test_bancocentral.py
+$ ./test_bancocentral.py
 ..............................
 ----------------------------------------------------------------------
 Ran 30 tests in 47.580s
