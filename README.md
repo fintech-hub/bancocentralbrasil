@@ -79,16 +79,6 @@ Ran 30 tests in 47.580s
 OK
 ```
 
-## Sponsor
----------
-<a href="https://www.buymeacoffee.com/leogregianin" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/lato-orange.png" alt="Buy Me A Coffee" style="height: 35px !important;width: 150px !important;" ></a>
-
-
-## Agradecimentos
----------
-<a href="https://www.jetbrains.com/pycharm/?from=bancocentralbrasil"><img src="jetbrains-variant-4.png" alt="JetBrains" width="80"></a> A JetBrains pelo fornecimento da licença do PyCharm para desenvolvimento desta biblioteca.
-
-
 Licença
 -------
 
