@@ -1,12 +1,12 @@
 # Banco Central do Brasil
 
 [![PyPI version](https://badge.fury.io/py/bancocentralbrasil.svg)](https://badge.fury.io/py/bancocentralbrasil)
-[![Build Status](https://travis-ci.org/leogregianin/bancocentralbrasil.svg)](https://travis-ci.org/leogregianin/bancocentralbrasil)
-[![codecov](https://codecov.io/gh/leogregianin/bancocentralbrasil/branch/master/graph/badge.svg)](https://codecov.io/gh/leogregianin/bancocentralbrasil) 
-[![GitHub issues](https://img.shields.io/github/issues/leogregianin/bancocentralbrasil.svg)](https://github.com/leogregianin/bancocentralbrasil/issues)
-[![GitHub forks](https://img.shields.io/github/forks/leogregianin/bancocentralbrasil.svg)](https://github.com/leogregianin/bancocentralbrasil/network)
-[![GitHub stars](https://img.shields.io/github/stars/leogregianin/bancocentralbrasil.svg)](https://github.com/leogregianin/bancocentralbrasil/stargazers)
-[![GitHub license](https://img.shields.io/github/license/leogregianin/bancocentralbrasil.svg)](https://github.com/leogregianin/bancocentralbrasil)
+[![Build Status](https://travis-ci.org/open-bacen/bancocentralbrasil.svg)](https://travis-ci.org/open-bacen/bancocentralbrasil)
+[![codecov](https://codecov.io/gh/open-bacen/bancocentralbrasil/branch/master/graph/badge.svg)](https://codecov.io/gh/open-bacen/bancocentralbrasil) 
+[![GitHub issues](https://img.shields.io/github/issues/open-bacen/bancocentralbrasil.svg)](https://github.com/open-bacen/bancocentralbrasil/issues)
+[![GitHub forks](https://img.shields.io/github/forks/open-bacen/bancocentralbrasil.svg)](https://github.com/open-bacen/bancocentralbrasil/network)
+[![GitHub stars](https://img.shields.io/github/stars/open-bacen/bancocentralbrasil.svg)](https://github.com/open-bacen/bancocentralbrasil/stargazers)
+[![GitHub license](https://img.shields.io/github/license/open-bacen/bancocentralbrasil.svg)](https://github.com/open-bacen/bancocentralbrasil)
 
 
 Sobre
