@@ -3,8 +3,15 @@
 
 import unittest
 from unittest.mock import patch, MagicMock
-from bc.bancocentral import AcessarBancoCentral
-from bc.bancocentral import Inflacao, Poupanca, Cambio, Selic, cleanContent
+from bc.bancocentral import (
+    AcessarBancoCentral,
+    DataCotacaoNotFound,
+    AttributeNotFound,
+    Inflacao,
+    Poupanca,
+    Cambio,
+    Selic,
+)
 
 
 def request_com_erro():
@@ -44,96 +51,158 @@ class TestCase(unittest.TestCase):
         self.assertIsNotNone(self.acesso.getURL())
 
     """ Inflação """
-    def test_inflacao_meta(self):
+    @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
+    def test_inflacao_meta(self, mock_request):
         self.assertIsNotNone(self.inflacao.get_meta_tax())
 
-    def test_inflacao_meta_maior_zero(self):
+    @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
+    def test_inflacao_meta_maior_zero(self, mock_request):
         self.assertTrue(self.inflacao.get_meta_tax() > 0)
 
-    def test_inflacao_acumulada(self):
+    @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
+    def test_inflacao_acumulada(self, mock_request):
         self.assertIsNotNone(self.inflacao.get_acumulada_tax())
 
-    def test_inflacao_acumulada_maior_zero(self):
+    @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
+    def test_inflacao_acumulada_maior_zero(self, mock_request):
         self.assertTrue(self.inflacao.get_acumulada_tax() > 0)
 
     """ Poupança """
-    def test_poupanca(self):
+    @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
+    def test_poupanca(self, mock_request):
         self.assertIsNotNone(self.poupanca.get_poupanca_tax())
 
-    def test_poupanca_maior_zero(self):
+    @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
+    def test_poupanca_maior_zero(self, mock_request):
         self.assertTrue(self.poupanca.get_poupanca_tax() > 0)
 
     """ Câmbio """
 
     """ Dólar """
-    def test_dolar_compra(self):
+    @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
+    def test_dolar_compra(self, mock_request):
         self.assertIsNotNone(self.cambio.get_dolar_compra())
 
-    def test_dolar_compra_ptax(self):
+    @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
+    def test_dolar_compra_ptax(self, mock_request):
         self.assertIsNotNone(self.cambio.get_dolar_compra_ptax())
 
-    def test_dolar_compra_maior_zero(self):
+    @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
+    def test_dolar_compra_maior_zero(self, mock_request):
         self.assertTrue(self.cambio.get_dolar_compra() > 0)
 
-    def test_dolar_compra_ptax_maior_zero(self):
+    @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
+    def test_dolar_compra_ptax_maior_zero(self, mock_request):
         self.assertTrue(self.cambio.get_dolar_compra_ptax() > 0)
 
-    def test_dolar_venda(self):
+    @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
+    def test_dolar_venda(self, mock_request):
         self.assertIsNotNone(self.cambio.get_dolar_venda())
 
-    def test_dolar_venda_ptax(self):
+    @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
+    def test_get_data_dolar(self, mock_request):
+        self.assertIsNotNone(self.cambio.get_data_dolar())
+
+    @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
+    def test_dolar_venda_ptax(self, mock_request):
         self.assertIsNotNone(self.cambio.get_dolar_venda_ptax())
 
-    def test_dolar_venda_maior_zero(self):
+    @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
+    def test_get_data_dolar_ptax(self, mock_request):
+        self.assertIsNotNone(self.cambio.get_data_dolar_ptax())
+
+    @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
+    def test_dolar_venda_maior_zero(self, mock_request):
         self.assertTrue(self.cambio.get_dolar_venda() > 0)
 
-    def test_dolar_venda_ptax_maior_zero(self):
+    @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
+    def test_dolar_venda_ptax_maior_zero(self, mock_request):
         self.assertTrue(self.cambio.get_dolar_venda_ptax() > 0)
 
     """ Euro """
-    def test_euro_compra(self):
+    @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
+    def test_euro_compra(self, mock_request):
         self.assertIsNotNone(self.cambio.get_euro_compra())
 
-    def test_euro_compra_maior_zero(self):
+    @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
+    def test_euro_compra_maior_zero(self, mock_request):
         self.assertTrue(self.cambio.get_euro_compra() > 0)
 
-    def test_euro_venda(self):
+    @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
+    def test_euro_venda(self, mock_request):
         self.assertIsNotNone(self.cambio.get_euro_venda())
 
-    def test_euro_venda_maior_zero(self):
+    @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
+    def test_get_data_euro(self, mock_request):
+        self.assertIsNotNone(self.cambio.get_data_euro())
+
+    @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
+    def test_euro_venda_maior_zero(self, mock_request):
         self.assertTrue(self.cambio.get_euro_venda() > 0)
 
-    def test_euro_compra_ptax(self):
+    @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
+    def test_euro_compra_ptax(self, mock_request):
         self.assertIsNotNone(self.cambio.get_euro_compra_ptax())
 
-    def test_euro_compra_ptax_maior_zero(self):
+    @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
+    def test_get_data_euro_ptax(self, mock_request):
+        self.assertIsNotNone(self.cambio.get_data_euro_ptax())
+
+    @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
+    def test_euro_compra_ptax_maior_zero(self, mock_request):
         self.assertTrue(self.cambio.get_euro_compra_ptax() > 0)
 
-    def test_euro_venda_ptax(self):
+    @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
+    def test_euro_venda_ptax(self, mock_request):
         self.assertIsNotNone(self.cambio.get_euro_venda_ptax())
 
-    def test_euro_venda_ptax_maior_zero(self):
+    @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
+    def test_euro_venda_ptax_maior_zero(self, mock_request):
         self.assertTrue(self.cambio.get_euro_venda_ptax() > 0)
 
     """ Taxa Selic """
-    def test_selic_meta(self):
+    @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
+    def test_selic_meta(self, mock_request):
         self.assertIsNotNone(self.selic.get_selic_meta())
 
-    def test_selic_meta_maior_zero(self):
+    @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
+    def test_selic_meta_maior_zero(self, mock_request):
         self.assertTrue(self.selic.get_selic_meta() > 0)
 
-    def test_selic_real(self):
+    @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
+    def test_selic_real(self, mock_request):
         self.assertIsNotNone(self.selic.get_selic_real())
 
-    def test_selic_real_maior_zero(self):
+    @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
+    def test_selic_real_maior_zero(self, mock_request):
         self.assertTrue(self.selic.get_selic_real() > 0)
+
+    @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
+    def test_get_data_selic_meta(self, mock_request):
+        self.assertIsNotNone(self.selic.get_data_selic_meta())
+
+    @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
+    def test_get_data_selic_real(self, mock_request):
+        self.assertIsNotNone(self.selic.get_data_selic_real())
 
     """ clean Content """
     def test_cleanContent(self):
         mock = "<content>&gt;</content>&lt;&gt;\r\n'"
         lista = ["&lt;", "<content>", "&gt;", "</content>", "&lt;", "&gt;", "\r\n"]
-        mock = cleanContent(mock)
+        mock = self.acesso.cleanContent(mock)
         self.assertFalse(([i in mock for i in lista].count(True)) == 0)
+
+    def test_exceptions_datacotacao(self):
+        with self.assertRaises(DataCotacaoNotFound) as exp:
+            raise DataCotacaoNotFound
+        error = exp.exception
+        self.assertEqual(str(error), "Não foi possível capturar os dados do site")
+
+    def test_exceptions_attribute(self):
+        with self.assertRaises(AttributeNotFound) as exp:
+            raise AttributeNotFound
+        error = exp.exception
+        self.assertEqual(str(error), "Atributo não encontrado")
 
 
 if __name__ == '__main__':

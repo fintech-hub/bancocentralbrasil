@@ -13,12 +13,15 @@ Sobre
 -------
 
   * Informações sobre taxas oficiais diárias de **Inflação**, **Selic**, **Poupança**, **Dólar**, **Dólar PTAX**, **Euro** e **Euro PTAX** pelo site do Banco Central do Brasil (http://www.bcb.gov.br).
-   
-Pré requisitos
+
+Desenvolvimento
 -------
 
-  * Instalação da versão do Python >= 3.x (http://www.python.org/download)
-  
+ ```sh
+$ virtualenv .venv
+$ source .venv/bin/activate
+```
+
 Instalação das dependências
 -------
 
@@ -37,20 +40,24 @@ Utilização
 -------
 
 ```bash
-$ ./sample.py
-Inflação Meta: 4.0
-Inflação acumulada 12 últimos meses: 4.53
-Poupança: 0.3715
-Dólar compra PTAX: 3.7326
-Dólar venda PTAX: 3.7332
-Dólar compra: 3.7234
-Dólar venda: 3.724
-Euro compra PTAX: 4.3276
-Euro venda PTAX: 4.3286
-Euro compra: 4.3169
-Euro venda: 4.318
-Selic meta: 6.5
-Selic real: 6.4
+$ python ./sample.py
+Inflação Meta: 3.75
+Inflação acumulada 12 últimos meses: 5.2
+Poupança: 0.1159
+Dólar compra PTAX: 5.7443
+Dólar venda PTAX: 5.7449
+Dólar PTAX em 10/03/2021 16:03:03
+Dólar compra: 5.7443
+Dólar venda: 5.7449
+Dólar em 10/03/2021 16:03:03
+Euro compra PTAX: 6.8323
+Euro venda PTAX: 6.8353
+Euro PTAX em 10/03/2021 16:03:03
+Euro compra: 6.8323
+Euro venda: 6.8353
+Euro em 10/03/2021 16:03:03
+Selic meta: 2.0 em 20/01/2021
+Selic real: 1.9 em 10/03/2021
 ```
 
 ```bash
@@ -67,17 +74,32 @@ Selic real: 6.4
 6.5
 ```
 
-Testes unitários
+Testes e cobertura
 ---------
 
 ```bash
-$ ./test_bancocentral.py
+$ python -m unittest
 ..............................
 ----------------------------------------------------------------------
 Ran 30 tests in 47.580s
 
 OK
 ```
+
+```bash
+$ python -m coverage run --source=bc tests/test_bancocentral.py
+..............................
+----------------------------------------------------------------------
+Ran 30 tests in 64.135s
+
+OK
+```
+
+```bash
+$ coverage report
+$ coverage html
+```
+
 
 Licença
 -------

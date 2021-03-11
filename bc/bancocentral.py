@@ -4,11 +4,19 @@
 import requests
 import re
 
-class BancoCentralException(BaseException):
-    pass
+
+class DataCotacaoNotFound(Exception):
+    def __str__(self):
+        return "Não foi possível capturar os dados do site"
+
+
+class AttributeNotFound(Exception):
+    def __str__(self):
+        return "Atributo não encontrado"
+
 
 class AcessarBancoCentral:
-    
+
     def __init__(self, url):
         self.url = url
 
@@ -29,282 +37,206 @@ class AcessarBancoCentral:
         for _ in range(10):
             try:
                 request = requests.get(self.url, headers=headers, timeout=None)
-                if request.status_code == 200:
-                    return request
-                elif request.status_code != 200:
+                if request.status_code != 200:
                     continue
+                return request
             except requests.ConnectionError:
                 continue
 
-def cleanContent(content):
-    fix = {'&lt;': '<', '&gt;': '>'}
-    for key, value in fix.items():
-        content = content.replace(key, value)
-    content = content.replace('\r\n', '')
-    content = content.replace('/>    <content', '/> <content')
-    return content
+    def cleanContent(self, content):
+        fix = {'&lt;': '<', '&gt;': '>'}
+        for key, value in fix.items():
+            content = content.replace(key, value)
+        content = content.replace('\r\n', '')
+        content = content.replace('/>    <content', '/> <content')
+        return content
 
 
 class Inflacao:
 
     def __init__(self):
         self.query_url = 'https://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/inflacao'
-        acesso = AcessarBancoCentral(self.query_url)
-        self.req = acesso.getURL()
+        self.acesso = AcessarBancoCentral(self.query_url)
+        self.req = self.acesso.getURL()
 
     def get_meta_tax(self):
-        inflacao = cleanContent(self.req.content.decode('utf-8'))
-        if not inflacao:
-          return None
-        try:
-          tax = re.search(r'<div id=label>Meta</div><div id=rate><div id=value>(\d*[\.\,]?\d+)</div>', inflacao).group(1)
-        except AttributeError:
-          return None
-        except:
-          raise
-        return float(tax.replace(',','.'))
+        inflacao = self.acesso.cleanContent(self.req.content.decode('utf-8'))
+        tax = re.search(r'<div id=label>Meta</div><div id=rate><div id=value>(\d*[\.\,]?\d+)</div>', inflacao)
+        if not tax:
+            raise DataCotacaoNotFound
+        return float(tax.group(1).replace(',', '.'))
 
     def get_acumulada_tax(self):
-        inflacao = cleanContent(self.req.content.decode('utf-8'))
-        if not inflacao:
-          return None
-        try:
-          tax = re.search(r'<div id=label>Acumulada</div><div id=rate><div id=value>(\d*[\.\,]?\d+)</div>', inflacao).group(1)
-        except AttributeError:
-          return None
-        except:
-          raise
-        return float(tax.replace(',','.'))
+        inflacao = self.acesso.cleanContent(self.req.content.decode('utf-8'))
+        tax = re.search(r'<div id=label>Acumulada</div><div id=rate><div id=value>(\d*[\.\,]?\d+)</div>', inflacao)
+        if not tax:
+            raise DataCotacaoNotFound
+        return float(tax.group(1).replace(',', '.'))
 
 
 class Poupanca:
 
     def __init__(self):
         self.query_url = 'https://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/poupanca'
-        acesso = AcessarBancoCentral(self.query_url)
-        self.req = acesso.getURL()
+        self.acesso = AcessarBancoCentral(self.query_url)
+        self.req = self.acesso.getURL()
 
     def get_poupanca_tax(self):
-        poupanca = cleanContent(self.req.content.decode('utf-8'))
-        if not poupanca:
-          return None
-        try:
-          tax = re.search(r'<div id=value>(\d*[\.\,]?\d+)</div>', poupanca).group(1)
-        except AttributeError:
-          return None
-        except:
-          raise
-        return float(tax.replace(',','.'))
+        poupanca = self.acesso.cleanContent(self.req.content.decode('utf-8'))
+        tax = re.search(r'<div id=value>(\d*[\.\,]?\d+)</div>', poupanca)
+        if not tax:
+            raise DataCotacaoNotFound
+        return float(tax.group(1).replace(',', '.'))
 
 
 class Cambio:
 
     def __init__(self):
         self.query_url = 'https://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/cambio'
-        acesso = AcessarBancoCentral(self.query_url)
-        self.req = acesso.getURL()
-        self.cambio = cleanContent(self.req.content.decode('utf-8'))
+        self.acesso = AcessarBancoCentral(self.query_url)
+        self.req = self.acesso.getURL()
+        self.cambio = self.acesso.cleanContent(self.req.content.decode('utf-8'))
 
     def get_dolar_compra_ptax(self):
-        data = re.search(r'INDICADOR_CAMBIO_DOLAR_PTAX(.*)</entry>', self.cambio).group(1)
+        data = re.search(r'INDICADOR_CAMBIO_DOLAR_PTAX(.*)</entry>', self.cambio)
         if not data:
-          return None
-        try:
-          compra = re.search(r'<div id=rate><div id=label>Compra</div><div id=value>(\d*[\.\,]?\d+)</div>', data).group(1)
-        except AttributeError:
-          return None
-        except:
-          raise
-        return float(compra.replace(',','.'))
+            raise DataCotacaoNotFound
+        compra = re.search(r'<div id=rate><div id=label>Compra</div><div id=value>(\d*[\.\,]?\d+)</div>', data.group(1))
+        if not compra:
+            raise DataCotacaoNotFound
+        return float(compra.group(1).replace(',', '.'))
 
     def get_dolar_venda_ptax(self):
-        data = re.search(r'INDICADOR_CAMBIO_DOLAR_PTAX(.*)</entry>', self.cambio).group(1)
+        data = re.search(r'INDICADOR_CAMBIO_DOLAR_PTAX(.*)</entry>', self.cambio)
         if not data:
-          return None
-        try:
-          venda = re.search(r'<div id=rate><div id=label>Venda</div><div id=value>(\d*[\.\,]?\d+)</div>', data).group(1)
-        except AttributeError:
-          return None
-        except:
-          raise
-        return float(venda.replace(',','.'))
+            raise DataCotacaoNotFound
+        venda = re.search(r'<div id=rate><div id=label>Venda</div><div id=value>(\d*[\.\,]?\d+)</div>', data.group(1))
+        if not venda:
+            raise DataCotacaoNotFound
+        return float(venda.group(1).replace(',', '.'))
 
     def get_data_dolar_ptax(self):
-        # A data da cotacao eh a mesma para compra e venda
-        data = re.search(r'INDICADOR_CAMBIO_DOLAR_PTAX(.*)</entry>', self.cambio).group(1)
+        data = re.search(r'INDICADOR_CAMBIO_DOLAR_PTAX(.*)</entry>', self.cambio)
         if not data:
-          return None
-        try:
-          data_dolar_ptax = re.search(r'<div id=data>[a-zA-Z\s]*([\d/]+\s[\d:]+)</div>', data).group(1)
-        except AttributeError:
-          return None
-        except:
-          raise
-        return data_dolar_ptax
+            raise DataCotacaoNotFound
+        search = re.search(r'<div id=data>[a-zA-Z\s]*([\d/]+\s[\d:]+)</div>', data.group(1))
+        if not search:
+            raise AttributeNotFound
+        return search.group(1)
 
     def get_dolar_compra(self):
-        data = re.search(r'INDICADOR_CAMBIO_DOLAR(.*)</entry>', self.cambio).group(1)
+        data = re.search(r'INDICADOR_CAMBIO_DOLAR(.*)</entry>', self.cambio)
         if not data:
-          return None
-        try:
-          compra = re.search(r'<div id=rate><div id=label>Compra</div><div id=value>(\d*[\.\,]?\d+)</div>', data).group(1)
-        except AttributeError:
-          return None
-        except:
-          raise
-        return float(compra.replace(',','.'))
+            raise DataCotacaoNotFound
+        compra = re.search(r'<div id=rate><div id=label>Compra</div><div id=value>(\d*[\.\,]?\d+)</div>', data.group(1))
+        if not compra:
+            raise DataCotacaoNotFound
+        return float(compra.group(1).replace(',', '.'))
 
     def get_dolar_venda(self):
-        data = re.search(r'INDICADOR_CAMBIO_DOLAR(.*)</entry>', self.cambio).group(1)
+        data = re.search(r'INDICADOR_CAMBIO_DOLAR(.*)</entry>', self.cambio)
         if not data:
-          return None
-        try:
-          venda = re.search(r'<div id=rate><div id=label>Venda</div><div id=value>(\d*[\.\,]?\d+)</div>', data).group(1)
-        except AttributeError:
-          return None
-        except:
-          raise
-        return float(venda.replace(',','.'))
+            raise DataCotacaoNotFound
+        venda = re.search(r'<div id=rate><div id=label>Venda</div><div id=value>(\d*[\.\,]?\d+)</div>', data.group(1))
+        if not venda:
+            raise DataCotacaoNotFound
+        return float(venda.group(1).replace(',', '.'))
 
     def get_data_dolar(self):
-        # A data da cotacao eh a mesma para compra e venda
-        data = re.search(r'INDICADOR_CAMBIO_DOLAR(.*)</entry>', self.cambio).group(1)
+        data = re.search(r'INDICADOR_CAMBIO_DOLAR(.*)</entry>', self.cambio)
         if not data:
-          return None
-        try:
-          data_dolar_ptax = re.search(r'<div id=data>[a-zA-Z\s]*([\d/]+\s[\d:]+)</div>', data).group(1)
-        except AttributeError:
-          return None
-        except:
-          raise
-        return data_dolar_ptax
+            raise DataCotacaoNotFound
+        search = re.search(r'<div id=data>[a-zA-Z\s]*([\d/]+\s[\d:]+)</div>', data.group(1))
+        if not search:
+            raise AttributeNotFound
+        return search.group(1)
 
     def get_euro_compra_ptax(self):
-        data = re.search(r'INDICADOR_CAMBIO_EURO_PTAX(.*)</entry>', self.cambio).group(1)
+        data = re.search(r'INDICADOR_CAMBIO_EURO_PTAX(.*)</entry>', self.cambio)
         if not data:
-          return None
-        try:
-          compra = re.search(r'<div id=rate><div id=label>Compra</div><div id=value>(\d*[\.\,]?\d+)</div>', data).group(1)
-        except AttributeError:
-          return None
-        except:
-          raise
-        return float(compra.replace(',','.'))
+            raise DataCotacaoNotFound
+        compra = re.search(r'<div id=rate><div id=label>Compra</div><div id=value>(\d*[\.\,]?\d+)</div>', data.group(1))
+        if not compra:
+            raise DataCotacaoNotFound
+        return float(compra.group(1).replace(',', '.'))
 
     def get_euro_venda_ptax(self):
-        data = re.search(r'INDICADOR_CAMBIO_EURO_PTAX(.*)</entry>', self.cambio).group(1)
+        data = re.search(r'INDICADOR_CAMBIO_EURO_PTAX(.*)</entry>', self.cambio)
         if not data:
-          return None
-        try:
-          venda = re.search(r'<div id=rate><div id=label>Venda</div><div id=value>(\d*[\.\,]?\d+)</div>', data).group(1)
-        except AttributeError:
-          return None
-        except:
-          raise
-        return float(venda.replace(',','.'))
+            raise DataCotacaoNotFound
+        venda = re.search(r'<div id=rate><div id=label>Venda</div><div id=value>(\d*[\.\,]?\d+)</div>', data.group(1))
+        if not venda:
+            raise DataCotacaoNotFound
+        return float(venda.group(1).replace(',', '.'))
 
     def get_data_euro_ptax(self):
-        # A data da cotacao eh a mesma para compra e venda
-        data = re.search(r'INDICADOR_CAMBIO_EURO_PTAX(.*)</entry>', self.cambio).group(1)
+        data = re.search(r'INDICADOR_CAMBIO_EURO_PTAX(.*)</entry>', self.cambio)
         if not data:
-          return None
-        try:
-          data_euro_ptax = re.search(r'<div id=data>[a-zA-Z\s]*([\d/]+\s[\d:]+)</div>', data).group(1)
-        except AttributeError:
-          return None
-        except:
-          raise
-        return data_euro_ptax
+            raise DataCotacaoNotFound
+        search = re.search(r'<div id=data>[a-zA-Z\s]*([\d/]+\s[\d:]+)</div>', data.group(1))
+        if not search:
+            raise AttributeNotFound
+        return search.group(1)
 
     def get_euro_compra(self):
-        data = re.search(r'INDICADOR_CAMBIO_EURO(.*)</entry>', self.cambio).group(1)
+        data = re.search(r'INDICADOR_CAMBIO_EURO(.*)</entry>', self.cambio)
         if not data:
-          return None
-        try:
-          compra = re.search(r'<div id=rate><div id=label>Compra</div><div id=value>(\d*[\.\,]?\d+)</div>', data).group(1)
-        except AttributeError:
-          return None
-        except:
-          raise
-        return float(compra.replace(',','.'))
+            raise DataCotacaoNotFound
+        compra = re.search(r'<div id=rate><div id=label>Compra</div><div id=value>(\d*[\.\,]?\d+)</div>', data.group(1))
+        if not compra:
+            raise DataCotacaoNotFound
+        return float(compra.group(1).replace(',', '.'))
 
     def get_euro_venda(self):
-        data = re.search(r'INDICADOR_CAMBIO_EURO(.*)</entry>', self.cambio).group(1)
+        data = re.search(r'INDICADOR_CAMBIO_EURO(.*)</entry>', self.cambio)
         if not data:
-          return None
-        try:
-          venda = re.search(r'<div id=rate><div id=label>Venda</div><div id=value>(\d*[\.\,]?\d+)</div>', data).group(1)
-        except AttributeError:
-          return None
-        except:
-          raise
-        return float(venda.replace(',','.'))
+            raise DataCotacaoNotFound
+        venda = re.search(r'<div id=rate><div id=label>Venda</div><div id=value>(\d*[\.\,]?\d+)</div>', data.group(1))
+        if not venda:
+            raise DataCotacaoNotFound
+        return float(venda.group(1).replace(',', '.'))
 
     def get_data_euro(self):
-        # A data da cotacao eh a mesma para compra e venda
-        data = re.search(r'INDICADOR_CAMBIO_EURO(.*)</entry>', self.cambio).group(1)
+        data = re.search(r'INDICADOR_CAMBIO_EURO(.*)</entry>', self.cambio)
         if not data:
-          return None
-        try:
-          data_euro = re.search(r'<div id=data>[a-zA-Z\s]*([\d/]+\s[\d:]+)</div>', data).group(1)
-        except AttributeError:
-          return None
-        except:
-          raise
-        return data_euro
+            raise DataCotacaoNotFound
+        search = re.search(r'<div id=data>[a-zA-Z\s]*([\d/]+\s[\d:]+)</div>', data.group(1))
+        if not search:
+            raise AttributeNotFound
+        return search.group(1)
 
 
 class Selic:
 
-    def __init__(self): 
+    def __init__(self):
         self.query_url = 'https://conteudo.bcb.gov.br/api/feed/pt-br/PAINEL_INDICADORES/juros'
-        acesso = AcessarBancoCentral(self.query_url)
-        self.req = acesso.getURL()
+        self.acesso = AcessarBancoCentral(self.query_url)
+        self.req = self.acesso.getURL()
 
     def get_selic_meta(self):
-        selic = cleanContent(self.req.content.decode('utf-8'))
-        if not selic:
-          return None
-        try:
-          selic_meta = re.search(r'<div id=ratevalue>(\d*[\.\,]?\d+)</div>', selic).group(1)
-        except AttributeError:
-          return None
-        except:
-          raise
-        return float(selic_meta.replace(',','.'))
+        selic = self.acesso.cleanContent(self.req.content.decode('utf-8'))
+        selic_meta = re.search(r'<div id=ratevalue>(\d*[\.\,]?\d+)</div>', selic)
+        if not selic_meta:
+            raise DataCotacaoNotFound
+        return float(selic_meta.group(1).replace(',', '.'))
 
     def get_data_selic_meta(self):
-        selic = cleanContent(self.req.content.decode('utf-8'))
-        if not selic:
-          return None
-        try:
-          data_selic_meta = re.search(r'<div=ratedate>([\d/]+)</div>', selic).group(1)
-        except AttributeError:
-          return None
-        except:
-          raise
-        return data_selic_meta
+        selic = self.acesso.cleanContent(self.req.content.decode('utf-8'))
+        search = re.search(r'<div=ratedate>([\d/]+)</div>', selic)
+        if not search:
+            raise AttributeNotFound
+        return search.group(1)
 
     def get_selic_real(self):
-        selic = cleanContent(self.req.content.decode('utf-8'))
-        if not selic:
-          return None
-        try:
-          selic_real = re.search(r'<div id=dailyratevalue>(\d*[\.\,]?\d+)</div>', selic).group(1)
-        except AttributeError:
-          return None
-        except:
-          raise
-        return float(selic_real.replace(',','.'))
-    
+        selic = self.acesso.cleanContent(self.req.content.decode('utf-8'))
+        selic_real = re.search(r'<div id=dailyratevalue>(\d*[\.\,]?\d+)</div>', selic)
+        if not selic_real:
+            raise DataCotacaoNotFound
+        return float(selic_real.group(1).replace(',', '.'))
+
     def get_data_selic_real(self):
-        selic = cleanContent(self.req.content.decode('utf-8'))
-        if not selic:
-          return None
-        try:
-          data_selic_real = re.search(r'<div id=dailyratedate>([\d/]+)</div>', selic).group(1)
-        except AttributeError:
-          return None
-        except:
-          raise
-        return data_selic_real
+        selic = self.acesso.cleanContent(self.req.content.decode('utf-8'))
+        search = re.search(r'<div id=dailyratedate>([\d/]+)</div>', selic)
+        if not search:
+            raise AttributeNotFound
+        return search.group(1)

@@ -1,5 +1,11 @@
 from setuptools import setup, find_packages
 
+
+requirements = [
+    "requests>2,<3",
+]
+test_requirements = ["coverage"]
+
 setup(
     name='bancocentralbrasil',
     version='1.2.0',
@@ -25,6 +31,7 @@ setup(
         'Operating System :: OS Independent',
         'Topic :: Software Development :: Libraries :: Python Modules'
     ],
-    install_requires=[],
-    test_suite='test',
+    install_requires=[requirements],
+    test_suite="tests",
+    tests_require=test_requirements,
 )
