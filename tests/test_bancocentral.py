@@ -32,7 +32,7 @@ class TestCase(unittest.TestCase):
 
         self.acesso = AcessarBancoCentral('http://my.url')
 
-    """ Retry """
+    # Retry
     @patch('bc.bancocentral.requests.get', return_value=request_com_erro())
     def test_nao_retorna_request_com_erro(self, mock_request):
         self.assertIsNone(self.acesso.getURL())
@@ -50,7 +50,7 @@ class TestCase(unittest.TestCase):
 
         self.assertIsNotNone(self.acesso.getURL())
 
-    """ Inflação """
+    # Inflação
     @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
     def test_inflacao_meta(self, mock_request):
         self.assertIsNotNone(self.inflacao.get_meta_tax())
@@ -67,7 +67,7 @@ class TestCase(unittest.TestCase):
     def test_inflacao_acumulada_maior_zero(self, mock_request):
         self.assertTrue(self.inflacao.get_acumulada_tax() > 0)
 
-    """ Poupança """
+    # Poupança
     @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
     def test_poupanca(self, mock_request):
         self.assertIsNotNone(self.poupanca.get_poupanca_tax())
@@ -76,9 +76,7 @@ class TestCase(unittest.TestCase):
     def test_poupanca_maior_zero(self, mock_request):
         self.assertTrue(self.poupanca.get_poupanca_tax() > 0)
 
-    """ Câmbio """
-
-    """ Dólar """
+    # Dólar
     @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
     def test_dolar_compra(self, mock_request):
         self.assertIsNotNone(self.cambio.get_dolar_compra())
@@ -119,7 +117,7 @@ class TestCase(unittest.TestCase):
     def test_dolar_venda_ptax_maior_zero(self, mock_request):
         self.assertTrue(self.cambio.get_dolar_venda_ptax() > 0)
 
-    """ Euro """
+    # Euro
     @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
     def test_euro_compra(self, mock_request):
         self.assertIsNotNone(self.cambio.get_euro_compra())
@@ -160,7 +158,7 @@ class TestCase(unittest.TestCase):
     def test_euro_venda_ptax_maior_zero(self, mock_request):
         self.assertTrue(self.cambio.get_euro_venda_ptax() > 0)
 
-    """ Taxa Selic """
+    # Taxa Selic
     @patch('bc.bancocentral.requests.get', return_value=request_bem_sucedido())
     def test_selic_meta(self, mock_request):
         self.assertIsNotNone(self.selic.get_selic_meta())
@@ -185,7 +183,7 @@ class TestCase(unittest.TestCase):
     def test_get_data_selic_real(self, mock_request):
         self.assertIsNotNone(self.selic.get_data_selic_real())
 
-    """ clean Content """
+    # clean Content
     def test_cleanContent(self):
         mock = "<content>&gt;</content>&lt;&gt;\r\n'"
         lista = ["&lt;", "<content>", "&gt;", "</content>", "&lt;", "&gt;", "\r\n"]
