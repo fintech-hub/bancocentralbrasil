@@ -1,7 +1,7 @@
 # Banco Central do Brasil
 
 [![PyPI version](https://badge.fury.io/py/bancocentralbrasil.svg)](https://badge.fury.io/py/bancocentralbrasil)
-[![Build Status](https://travis-ci.org/open-bacen/bancocentralbrasil.svg)](https://travis-ci.org/open-bacen/bancocentralbrasil)
+[![bancocentralbrasil](https://github.com/open-bacen/bancocentralbrasil/actions/workflows/main.yml/badge.svg)](https://github.com/open-bacen/bancocentralbrasil/actions/workflows/main.yml)
 [![codecov](https://codecov.io/gh/open-bacen/bancocentralbrasil/branch/master/graph/badge.svg)](https://codecov.io/gh/open-bacen/bancocentralbrasil) 
 [![GitHub issues](https://img.shields.io/github/issues/open-bacen/bancocentralbrasil.svg)](https://github.com/open-bacen/bancocentralbrasil/issues)
 [![GitHub forks](https://img.shields.io/github/forks/open-bacen/bancocentralbrasil.svg)](https://github.com/open-bacen/bancocentralbrasil/network)
