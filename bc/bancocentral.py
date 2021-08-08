@@ -43,7 +43,8 @@ class AcessarBancoCentral:
             except requests.ConnectionError:
                 continue
 
-    def cleanContent(self, content):
+    @staticmethod
+    def cleanContent(content):
         fix = {'&lt;': '<', '&gt;': '>'}
         for key, value in fix.items():
             content = content.replace(key, value)
