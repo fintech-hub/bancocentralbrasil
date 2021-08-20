@@ -36,7 +36,7 @@ class AcessarBancoCentral:
         # Server very unstable. Test 10x http 200 response
         for _ in range(10):
             try:
-                request = requests.get(self.url, headers=headers, timeout=None)
+                request = requests.get(self.url, headers=headers, timeout=50)
                 if request.status_code != 200:
                     continue
                 return request
