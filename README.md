@@ -1,12 +1,7 @@
 # Banco Central do Brasil
 
-[![PyPI version](https://badge.fury.io/py/bancocentralbrasil.svg)](https://badge.fury.io/py/bancocentralbrasil)
 [![bancocentralbrasil](https://github.com/open-bacen/bancocentralbrasil/actions/workflows/main.yml/badge.svg)](https://github.com/open-bacen/bancocentralbrasil/actions/workflows/main.yml)
-[![codecov](https://codecov.io/gh/open-bacen/bancocentralbrasil/branch/master/graph/badge.svg)](https://codecov.io/gh/open-bacen/bancocentralbrasil) 
-[![GitHub issues](https://img.shields.io/github/issues/open-bacen/bancocentralbrasil.svg)](https://github.com/open-bacen/bancocentralbrasil/issues)
-[![GitHub forks](https://img.shields.io/github/forks/open-bacen/bancocentralbrasil.svg)](https://github.com/open-bacen/bancocentralbrasil/network)
-[![GitHub stars](https://img.shields.io/github/stars/open-bacen/bancocentralbrasil.svg)](https://github.com/open-bacen/bancocentralbrasil/stargazers)
-[![GitHub license](https://img.shields.io/github/license/open-bacen/bancocentralbrasil.svg)](https://github.com/open-bacen/bancocentralbrasil)
+[![codecov](https://codecov.io/gh/open-bacen/bancocentralbrasil/branch/main/graph/badge.svg)](https://codecov.io/gh/open-bacen/bancocentralbrasil) 
 
 
 Sobre
@@ -41,23 +36,23 @@ Utilização
 
 ```bash
 $ python ./sample.py
-Inflação Meta: 3.75
-Inflação acumulada 12 últimos meses: 5.2
-Poupança: 0.1159
-Dólar compra PTAX: 5.7443
-Dólar venda PTAX: 5.7449
-Dólar PTAX em 10/03/2021 16:03:03
-Dólar compra: 5.7443
-Dólar venda: 5.7449
-Dólar em 10/03/2021 16:03:03
-Euro compra PTAX: 6.8323
-Euro venda PTAX: 6.8353
-Euro PTAX em 10/03/2021 16:03:03
-Euro compra: 6.8323
-Euro venda: 6.8353
-Euro em 10/03/2021 16:03:03
-Selic meta: 2.0 em 20/01/2021
-Selic real: 1.9 em 10/03/2021
+nflação Meta: 3.75
+Inflação acumulada 12 últimos meses: 8.99
+Poupança: 0.3012
+Dólar compra PTAX: 5.4174
+Dólar venda PTAX: 5.418
+Dólar PTAX em 19/08/2021 16:07:17
+Dólar compra: 5.4174
+Dólar venda: 5.418
+Dólar em 19/08/2021 16:07:17
+Euro compra PTAX: 6.3335
+Euro venda PTAX: 6.3364
+Euro PTAX em 19/08/2021 16:07:17
+Euro compra: 6.3335
+Euro venda: 6.3364
+Euro em 19/08/2021 16:07:17
+Selic meta: 5.25 em 04/08/2021
+Selic real: 5.15 em 19/08/2021
 ```
 
 ```bash
