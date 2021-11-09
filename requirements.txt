@@ -3,4 +3,4 @@ chardet==4.0.0
 coverage==5.5
 idna==3.2
 requests==2.26.0
-urllib3==1.26.6
+urllib3==1.26.7
